@@ -1,0 +1,27 @@
+﻿
+Elevator program
+
+Assumptions:
+	- An elevator has 3 states that are expressed with the ElevatorState enumeration (Ascending, Descending and Halt)
+	- Elevators can be Called to a floor (represented by Call methods in IBuilding and IElevator), generally there are two types of elevator call panels, 
+	those with one button for calling the elevator and those with two buttons that also indicate if you want to ascend or descend, 
+	for simplicity in this example I have implemented the one button variant    
+	- Elevators can be instructed to go to a specific floor from the panel inside of it (represented by GoTo methods in IBuilding and IElevator), 
+	for simplicity both Call and GoTo add calls to the same queue and function the same
+	- An elevator that is not moving will wait for the first input and depending on its current position start ascending or descending
+	- Once an elevator is moving it will continue to go in that direction, stopping at every floor until it reaches the last queued floor in that direction and stop
+	- After it stops it checks if there are any calls for the opposite direction, if not it waits for the next call
+	- The elevator should stop and open once it reaches a called floor and wait for a certain time before continuing, 
+	for simplicity I did not implement that, once the elevator reaches a floor from the queue it will simply remove it from the queue and continue to the 
+	next floor if there are any calls in the queue
+	- Elevators have additional functionality that I didn't implement here (Wight sensor, Emergency functionality, Ventilation...)
+
+
+Example App 
+	- IBuilding and Building -> interface and an implementation for building, holds the references to the Elevator instances and has methods calling and operating the elevators
+	- IElevator and Elevator -> interface and an implementation for building, holds the reference to the ElevatorEngine that is responsible for elevator operations 
+	and exposes an API for operating the elevator 
+	- ElevatorEngine -> holds the elevator operation logic, the floors graph and the call queue 
+	- Floor -> Double linked node representing a single floor in a building, encapsulates the functionality for moving from one floor to another
+	- CallQueue -> Encapsulates a concurrent collection for elevator calls and exposes an API for Enqueuing, Dequeuing and Calculating the next call 
+	- ElevatorState -> enumeration representing possible elevator states
