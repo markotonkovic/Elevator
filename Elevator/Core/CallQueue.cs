@@ -11,9 +11,9 @@ namespace Elevators.Core
             _queue.TryAdd(floorNumber, 0);
         }
 
-        internal void Dequeue(int florNumber)
+        internal void Dequeue(int floorNumber)
         {
-            _queue.TryRemove(florNumber, out byte _);
+            _queue.TryRemove(floorNumber, out byte _);
         }
 
         internal int NextFloor(int currentFloor, ElevatorState state)
